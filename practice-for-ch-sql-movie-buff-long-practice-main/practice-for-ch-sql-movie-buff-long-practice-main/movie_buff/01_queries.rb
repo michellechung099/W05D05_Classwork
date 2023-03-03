@@ -6,6 +6,7 @@ def it_was_ok
   # You can use ranges (a..b) inside a where method.
   #
   # Find the id, title, and score of all movies with scores between 2 and 3.
+  Movie.select(:id, :title, :score).where(score: 2..3)
 
 end
 
@@ -20,6 +21,11 @@ def harrison_ford
   #
   # Find the id and title of all movies in which Harrison Ford appeared but not
   # as a lead actor.
+  Movie
+    .joins(:actors)
+    .select(:id, :title)
+    .where("actors.name = 'Harrison Ford'")
+    .where.not("castings.ord = 1")
 
 end
 
@@ -37,7 +43,7 @@ def biggest_cast
   #
   # Find the id and title of the 3 movies with the largest casts (i.e., most
   # actors).
-  
+
 end
 
 def directed_by_one_of(them)
@@ -52,7 +58,7 @@ def directed_by_one_of(them)
   # Movie.where(yr: years)
   #
   # Find the id and title of all the movies directed by one of 'them'.
-  
+
   # Note: Directors appear in the 'actors' table.
 
 end
